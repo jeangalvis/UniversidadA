@@ -4,6 +4,7 @@
     "Configurations",
     "Migrations",
     "Interfaces",
-    "Repositories"
+    "Repositories",
+    "UnitOfWork"
   ]
 }
