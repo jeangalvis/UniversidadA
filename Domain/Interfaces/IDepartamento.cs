@@ -4,5 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IDepartamento : IGeneric<Departamento>
     {
+        Task<IEnumerable<Departamento>> GetDepartamentoProfesoresInformatica();
     }
 }

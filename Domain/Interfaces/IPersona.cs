@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Views;
 
 namespace Domain.Interfaces
 {
@@ -10,5 +11,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Persona>> GetProfesoresSinTelefono();
         Task<IEnumerable<Persona>> GetAlumnasEnSistemas();
         Task<IEnumerable<Persona>> GetProfesoresConDepartamento();
+        Task<IEnumerable<Persona>> GetAlumnosMatriculadosAnyo();
+        Task<IEnumerable<ProfesoresConDepartamento>> GetProfesoresConDepartamentos();
     }
 }

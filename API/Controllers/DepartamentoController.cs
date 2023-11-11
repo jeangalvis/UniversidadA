@@ -101,4 +101,14 @@ public class DepartamentoController : BaseApiController
         var lstResultDto = _mapper.Map<List<DepartamentoDto>>(result.registros);
         return new Pager<DepartamentoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+
+    [HttpGet("GetDepartamentoProfesoresInformatica")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoDto>>> Get3()
+    {
+        var results = await _unitOfWork.Departamentos
+                                    .GetDepartamentoProfesoresInformatica();
+        return _mapper.Map<List<DepartamentoDto>>(results);
+    }
 }

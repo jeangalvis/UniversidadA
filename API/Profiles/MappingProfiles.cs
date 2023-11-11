@@ -23,6 +23,7 @@ namespace API.Profiles
             //Consultas
             CreateMap<Persona, AlumnosxNombreDto>().ReverseMap();
             CreateMap<AsignaturasAnyoNif, AsignaturasAnyoNifDto>().ReverseMap();
+            CreateMap<ProfesoresConDepartamento, ProfesoresConDepartamentoDto>().ReverseMap();
         }
     }
 }

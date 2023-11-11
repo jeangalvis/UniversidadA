@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -116,5 +117,33 @@ public class PersonaRepository : GenericRepository<Persona>, IPersona
                                 .ThenInclude(p => p.Departamento)
                                 .Where(p => p.IdTipoPersonafk == 1)
                                 .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Persona>> GetAlumnosMatriculadosAnyo()
+    {
+        return await _context.Personas
+                                    .Include(p => p.AlumnoMatriculaAsignaturas)
+                                    .ThenInclude(p => p.CursoEscolar)
+                                    .Where(p => p.AlumnoMatriculaAsignaturas.Any(p => p.CursoEscolar.AnyoInicio == 2018 && p.CursoEscolar.AnyoFinal == 2019))
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ProfesoresConDepartamento>> GetProfesoresConDepartamentos()
+    {
+        var query = from p in _context.Personas
+            join pro in _context.Profesores on p.Id equals pro.IdPersonafk into proGroup
+            from pro in proGroup.DefaultIfEmpty()
+            join d in _context.Departamentos on pro.IdDepartamentofk equals d.Id into deptGroup
+            from d in deptGroup.DefaultIfEmpty()
+            where p.IdTipoPersonafk == 1
+            orderby d.Nombre, p.Apellido1, p.Apellido2, p.Nombre
+            select new ProfesoresConDepartamento
+            {
+                Departamento = d.Nombre,
+                Apellido1 = p.Apellido1,
+                Apellido2 = p.Apellido2,
+                Nombre = p.Nombre
+            };
+
+        return await query.ToListAsync();
     }
 }

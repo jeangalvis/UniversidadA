@@ -159,4 +159,23 @@ public class PersonaController : BaseApiController
                                     .GetProfesoresConDepartamento();
         return _mapper.Map<List<PersonaDto>>(results);
     }
+    [HttpGet("GetAlumnosMatriculadosAnyo")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PersonaDto>>> Get9()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetAlumnosMatriculadosAnyo();
+        return _mapper.Map<List<PersonaDto>>(results);
+    }
+
+    [HttpGet("GetProfesoresConDepartamentos")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesoresConDepartamentoDto>>> Get10()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetProfesoresConDepartamentos();
+        return _mapper.Map<List<ProfesoresConDepartamentoDto>>(results);
+    }
 }

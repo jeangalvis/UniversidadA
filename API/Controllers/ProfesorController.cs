@@ -101,4 +101,14 @@ public class ProfesorController : BaseApiController
         var lstResultDto = _mapper.Map<List<ProfesorDto>>(result.registros);
         return new Pager<ProfesorDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+
+    [HttpGet("GetProfesoresSinDepartamento")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDto>>> Get3()
+    {
+        var results = await _unitOfWork.Profesores
+                                    .GetProfesoresSinDepartamento();
+        return _mapper.Map<List<ProfesorDto>>(results);
+    }
 }

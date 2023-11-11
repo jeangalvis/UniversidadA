@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -36,5 +37,12 @@ public class ProfesorRepository : GenericRepository<Profesor>, IProfesor
                                  .Take(pageSize)
                                  .ToListAsync();
         return (totalRegistros, registros);
+    }
+
+    public async Task<IEnumerable<Profesor>> GetProfesoresSinDepartamento()
+    {
+        return await _context.Profesores
+                                    .Where(profesor => profesor.IdDepartamentofk == null)
+                                    .ToListAsync();
     }
 }

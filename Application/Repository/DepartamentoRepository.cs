@@ -37,4 +37,20 @@ public class DepartamentoRepository : GenericRepository<Departamento>, IDepartam
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+
+    public async Task<IEnumerable<Departamento>> GetDepartamentoProfesoresInformatica()
+    {
+        return await _context.Departamentos
+                                        .Include(p => p.Profesores)
+                                        .ThenInclude(p => p.Asignaturas)
+                                        .ThenInclude(p => p.Grado)
+                                        .Where(p => p.Profesores.Any(p => p.Asignaturas.Any(p => p.Grado.Nombre == "Grado en Ingeniería Informática (Plan 2015)")))
+                                        .GroupBy(p => new { p.Id, p.Nombre })
+                                        .Select(p => new Departamento
+                                        {
+                                            Id = p.Key.Id,
+                                            Nombre = p.Key.Nombre
+                                        })
+                                        .ToListAsync();
+    }
 }
