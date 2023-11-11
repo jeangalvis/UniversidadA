@@ -5,6 +5,7 @@
     "Migrations",
     "Interfaces",
     "Repositories",
-    "UnitOfWork"
+    "UnitOfWork",
+    "Extensions"
   ]
 }
