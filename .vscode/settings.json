@@ -3,6 +3,7 @@
     "Entities",
     "Configurations",
     "Migrations",
-    "Interfaces"
+    "Interfaces",
+    "Repositories"
   ]
 }
