@@ -129,4 +129,13 @@ public class AsignaturaController : BaseApiController
                                     .GetAsignaturasAnyoNif();
         return _mapper.Map<List<AsignaturasAnyoNifDto>>(results);
     }
+    [HttpGet("GetAsignaturaSinProfesor")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaDto>>> Get6()
+    {
+        var results = await _unitOfWork.Asignaturas
+                                    .GetAsignaturaSinProfesor();
+        return _mapper.Map<List<AsignaturaDto>>(results);
+    }
 }

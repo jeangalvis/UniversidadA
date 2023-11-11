@@ -45,4 +45,11 @@ public class ProfesorRepository : GenericRepository<Profesor>, IProfesor
                                     .Where(profesor => profesor.IdDepartamentofk == null)
                                     .ToListAsync();
     }
+
+    public async Task<IEnumerable<Profesor>> GetProfesoresSinAsignatura()
+    {
+        return await _context.Profesores
+                            .Where(profesor => !_context.Asignaturas.Any(asignatura => asignatura.IdProfesorfk == profesor.Id))
+                            .ToListAsync();
+    }
 }

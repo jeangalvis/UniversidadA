@@ -111,4 +111,14 @@ public class ProfesorController : BaseApiController
                                     .GetProfesoresSinDepartamento();
         return _mapper.Map<List<ProfesorDto>>(results);
     }
+
+    [HttpGet("GetProfesoresSinAsignatura")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDto>>> Get4()
+    {
+        var results = await _unitOfWork.Profesores
+                                    .GetProfesoresSinAsignatura();
+        return _mapper.Map<List<ProfesorDto>>(results);
+    }
 }

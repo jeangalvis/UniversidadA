@@ -45,3 +45,9 @@ Los endpoints estan separados por:
 
 13.Consulta
 `/api/Profesor/GetProfesoresSinDepartamento`
+
+14.Consulta
+`/api/Profesor/GetProfesoresSinAsignatura`
+
+15.Consulta
+`/api/Asignatura/GetAsignaturaSinProfesor`

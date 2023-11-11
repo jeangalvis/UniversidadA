@@ -8,5 +8,6 @@ namespace Domain.Interfaces
         Task<IEnumerable<Asignatura>> GetAsignaturasCuatriCurso();
         Task<IEnumerable<Asignatura>> GetAsignaturasIngenieriaInformatica();
         Task<IEnumerable<AsignaturasAnyoNif>> GetAsignaturasAnyoNif();
+        Task<IEnumerable<Asignatura>> GetAsignaturaSinProfesor();
     }
 }

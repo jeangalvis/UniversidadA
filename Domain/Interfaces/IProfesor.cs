@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     public interface IProfesor : IGeneric<Profesor>
     {
         Task<IEnumerable<Profesor>> GetProfesoresSinDepartamento();
+        Task<IEnumerable<Profesor>> GetProfesoresSinAsignatura();
     }
 }

@@ -73,4 +73,10 @@ public class AsignaturaRepository : GenericRepository<Asignatura>, IAsignatura
 
         return resultado;
     }
+
+    public async Task<IEnumerable<Asignatura>> GetAsignaturaSinProfesor(){
+        return await _context.Asignaturas
+                                        .Where(asignatura => asignatura.IdProfesorfk == null)
+                                        .ToListAsync();
+    }
 }
