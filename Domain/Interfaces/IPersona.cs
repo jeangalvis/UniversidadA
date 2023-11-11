@@ -8,5 +8,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Persona>> GetAlumnosSinTelefono();
         Task<IEnumerable<Persona>> GetAlumnosNacieron1999();
         Task<IEnumerable<Persona>> GetProfesoresSinTelefono();
+        Task<IEnumerable<Persona>> GetAlumnasEnSistemas();
+        Task<IEnumerable<Persona>> GetProfesoresConDepartamento();
     }
 }

@@ -9,6 +9,7 @@
     "Extensions",
     "Dtos",
     "Profiles",
-    "Controllers"
+    "Controllers",
+    "Queries"
   ]
 }

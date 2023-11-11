@@ -62,9 +62,59 @@ public class PersonaRepository : GenericRepository<Persona>, IPersona
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<Persona>> GetProfesoresSinTelefono(){
+    public async Task<IEnumerable<Persona>> GetProfesoresSinTelefono()
+    {
         return await _context.Personas
                                     .Where(p => p.IdTipoPersonafk == 1 && p.Telefono == null && p.Nif.EndsWith("K"))
                                     .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Persona>> GetAlumnasEnSistemas()
+    {
+        var alumnas = await _context.Personas
+                                        .Include(p => p.AlumnoMatriculaAsignaturas)
+                                        .ThenInclude(p => p.Asignatura)
+                                        .ThenInclude(p => p.Grado)
+                                        .Where(p => p.IdSexofk == 2 && p.AlumnoMatriculaAsignaturas.Any(p => p.Asignatura.Grado.Id == 4))
+                                        .GroupBy(entry => new
+                                        {
+                                            entry.Id,
+                                            entry.Nif,
+                                            entry.Nombre,
+                                            entry.Apellido1,
+                                            entry.Apellido2,
+                                            entry.Ciudad,
+                                            entry.Direccion,
+                                            entry.Telefono,
+                                            entry.FechaNacimiento,
+                                            entry.IdSexofk,
+                                            entry.IdTipoPersonafk
+                                        })
+                                        .Select(grupo => new Persona
+                                        {
+                                            Id = grupo.Key.Id,
+                                            Nif = grupo.Key.Nif,
+                                            Nombre = grupo.Key.Nombre,
+                                            Apellido1 = grupo.Key.Apellido1,
+                                            Apellido2 = grupo.Key.Apellido2,
+                                            Ciudad = grupo.Key.Ciudad,
+                                            Direccion = grupo.Key.Direccion,
+                                            Telefono = grupo.Key.Telefono,
+                                            FechaNacimiento = grupo.Key.FechaNacimiento,
+                                            IdSexofk = grupo.Key.IdSexofk,
+                                            IdTipoPersonafk = grupo.Key.IdTipoPersonafk
+                                        })
+                                        .ToListAsync();
+
+        return alumnas;
+    }
+
+    public async Task<IEnumerable<Persona>> GetProfesoresConDepartamento()
+    {
+        return await _context.Personas
+                                .Include(p => p.Profesores)
+                                .ThenInclude(p => p.Departamento)
+                                .Where(p => p.IdTipoPersonafk == 1)
+                                .ToListAsync();
     }
 }

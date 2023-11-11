@@ -111,4 +111,22 @@ public class AsignaturaController : BaseApiController
                                     .GetAsignaturasCuatriCurso();
         return _mapper.Map<List<AsignaturaDto>>(results);
     }
+    [HttpGet("GetAsignaturasIngenieriaInformatica")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaDto>>> Get4()
+    {
+        var results = await _unitOfWork.Asignaturas
+                                    .GetAsignaturasIngenieriaInformatica();
+        return _mapper.Map<List<AsignaturaDto>>(results);
+    }
+    [HttpGet("GetAsignaturasAnyoNif")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturasAnyoNifDto>>> Get5()
+    {
+        var results = await _unitOfWork.Asignaturas
+                                    .GetAsignaturasAnyoNif();
+        return _mapper.Map<List<AsignaturasAnyoNifDto>>(results);
+    }
 }

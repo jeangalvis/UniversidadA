@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -41,5 +42,35 @@ public class AsignaturaRepository : GenericRepository<Asignatura>, IAsignatura
     {
         return await _context.Asignaturas
                                     .Where(p => p.Cuatrimestre == 1 && p.Curso == 3 && p.IdGradofk == 7).ToListAsync();
+    }
+
+    public async Task<IEnumerable<Asignatura>> GetAsignaturasIngenieriaInformatica()
+    {
+        return await _context.Asignaturas.Where(p => p.IdGradofk == 4).ToListAsync();
+    }
+
+    public async Task<IEnumerable<AsignaturasAnyoNif>> GetAsignaturasAnyoNif()
+    {
+        var resultado = await _context.Asignaturas
+            .Include(a => a.alumnoMatriculaAsignaturas)
+                .ThenInclude(ama => ama.Persona)
+                .ThenInclude(p => p.AlumnoMatriculaAsignaturas)
+                .ThenInclude(ama => ama.CursoEscolar)
+            .Where(a => a.alumnoMatriculaAsignaturas.Any(ama => ama.Persona.Nif == "26902806M"))
+            .Select(a => new AsignaturasAnyoNif
+            {
+                Nombre = a.Nombre,
+                AnyoInicio = a.alumnoMatriculaAsignaturas
+                    .Where(ama => ama.Persona.Nif == "26902806M" && ama.CursoEscolar != null)
+                    .Select(ama => ama.CursoEscolar.AnyoInicio)
+                    .FirstOrDefault(),
+                AnyoFinal = a.alumnoMatriculaAsignaturas
+                    .Where(ama => ama.Persona.Nif == "26902806M" && ama.CursoEscolar != null)
+                    .Select(ama => ama.CursoEscolar.AnyoFinal)
+                    .FirstOrDefault()
+            })
+            .ToListAsync();
+
+        return resultado;
     }
 }
