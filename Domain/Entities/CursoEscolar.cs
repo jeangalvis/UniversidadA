@@ -9,5 +9,6 @@ namespace Domain.Entities
     {
         public int AnyoInicio { get; set; }
         public int AnyoFinal { get; set; }
+        public ICollection<AlumnoMatriculaAsignatura> AlumnoMatriculaAsignaturas { get; set; }
     }
 }

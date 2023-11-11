@@ -1,5 +1,3 @@
 {
-    "conventionalCommits.scopes": [
-        "Entities"
-    ]
+  "conventionalCommits.scopes": ["Entities", "Configurations"]
 }
