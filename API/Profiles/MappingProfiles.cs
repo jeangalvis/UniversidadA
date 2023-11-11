@@ -18,6 +18,9 @@ namespace API.Profiles
             CreateMap<Sexo, SexoDto>().ReverseMap();
             CreateMap<TipoAsignatura, TipoAsignaturaDto>().ReverseMap();
             CreateMap<TipoPersona, TipoPersonaDto>().ReverseMap();
+
+            //Consultas
+            CreateMap<Persona, AlumnosxNombreDto>().ReverseMap();
         }
     }
 }

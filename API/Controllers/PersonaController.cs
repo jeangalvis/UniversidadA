@@ -101,4 +101,44 @@ public class PersonaController : BaseApiController
         var lstResultDto = _mapper.Map<List<PersonaDto>>(result.registros);
         return new Pager<PersonaDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+
+    [HttpGet("GetAlumnosxNombre")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AlumnosxNombreDto>>> Get3()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetAlumnosxNombre();
+        return _mapper.Map<List<AlumnosxNombreDto>>(results);
+    }
+
+    [HttpGet("GetAlumnosSinTelefono")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AlumnosxNombreDto>>> Get4()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetAlumnosSinTelefono();
+        return _mapper.Map<List<AlumnosxNombreDto>>(results);
+    }
+
+    [HttpGet("GetAlumnosNacieron1999")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PersonaDto>>> Get5()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetAlumnosNacieron1999();
+        return _mapper.Map<List<PersonaDto>>(results);
+    }
+
+    [HttpGet("GetProfesoresSinTelefono")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PersonaDto>>> Get6()
+    {
+        var results = await _unitOfWork.Personas
+                                    .GetProfesoresSinTelefono();
+        return _mapper.Map<List<PersonaDto>>(results);
+    }
 }

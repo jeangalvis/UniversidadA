@@ -37,4 +37,34 @@ public class PersonaRepository : GenericRepository<Persona>, IPersona
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+
+    public async Task<IEnumerable<Persona>> GetAlumnosxNombre()
+    {
+        return await _context.Personas
+                                    .Where(p => p.IdTipoPersonafk == 2)
+                                    .OrderBy(p => p.Apellido1)
+                                    .ThenBy(p => p.Apellido2)
+                                    .ThenBy(p => p.Nombre)
+                                    .Select(p => new Persona { Apellido1 = p.Apellido1, Apellido2 = p.Apellido2, Nombre = p.Nombre })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Persona>> GetAlumnosSinTelefono()
+    {
+        return await _context.Personas
+                                    .Where(p => p.IdTipoPersonafk == 2 && p.Telefono == null)
+                                    .Select(p => new Persona { Apellido1 = p.Apellido1, Apellido2 = p.Apellido2, Nombre = p.Nombre })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Persona>> GetAlumnosNacieron1999()
+    {
+        return await _context.Personas
+                                    .Where(p => p.IdTipoPersonafk == 2 && p.FechaNacimiento.Year == 1999)
+                                    .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Persona>> GetProfesoresSinTelefono(){
+        return await _context.Personas
+                                    .Where(p => p.IdTipoPersonafk == 1 && p.Telefono == null && p.Nif.EndsWith("K"))
+                                    .ToListAsync();
+    }
 }

@@ -37,4 +37,9 @@ public class AsignaturaRepository : GenericRepository<Asignatura>, IAsignatura
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+    public async Task<IEnumerable<Asignatura>> GetAsignaturasCuatriCurso()
+    {
+        return await _context.Asignaturas
+                                    .Where(p => p.Cuatrimestre == 1 && p.Curso == 3 && p.IdGradofk == 7).ToListAsync();
+    }
 }

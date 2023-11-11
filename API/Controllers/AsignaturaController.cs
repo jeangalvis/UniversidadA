@@ -101,4 +101,14 @@ public class AsignaturaController : BaseApiController
         var lstResultDto = _mapper.Map<List<AsignaturaDto>>(result.registros);
         return new Pager<AsignaturaDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+
+    [HttpGet("GetAsignaturasCuatriCurso")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaDto>>> Get3()
+    {
+        var results = await _unitOfWork.Asignaturas
+                                    .GetAsignaturasCuatriCurso();
+        return _mapper.Map<List<AsignaturaDto>>(results);
+    }
 }
