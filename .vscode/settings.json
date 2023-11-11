@@ -6,6 +6,7 @@
     "Interfaces",
     "Repositories",
     "UnitOfWork",
-    "Extensions"
+    "Extensions",
+    "Dtos"
   ]
 }
