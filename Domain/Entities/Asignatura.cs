@@ -13,7 +13,7 @@ namespace Domain.Entities
         public TipoAsignatura TipoAsignatura { get; set; }
         public int Curso { get; set; }
         public int Cuatrimestre { get; set; }
-        public int IdProfesorfk { get; set; }
+        public int? IdProfesorfk { get; set; }
         public Profesor Profesor { get; set; }
         public int IdGradofk { get; set; }
         public Grado Grado { get; set; }

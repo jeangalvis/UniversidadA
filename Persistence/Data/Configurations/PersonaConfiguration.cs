@@ -18,7 +18,7 @@ public class PersonaConfiguration : IEntityTypeConfiguration<Persona>
         builder.Property(p => p.Apellido2).HasColumnType("varchar").HasMaxLength(50).IsRequired();
         builder.Property(p => p.Ciudad).HasColumnType("varchar").HasMaxLength(25).IsRequired();
         builder.Property(p => p.Direccion).HasColumnType("varchar").HasMaxLength(50).IsRequired();
-        builder.Property(p => p.Telefono).HasColumnType("varchar").HasMaxLength(9).IsRequired();
+        builder.Property(p => p.Telefono).HasColumnType("varchar").HasMaxLength(9).IsRequired(false);
         builder.Property(p => p.FechaNacimiento).IsRequired();
 
         builder.HasOne(p => p.Sexo)

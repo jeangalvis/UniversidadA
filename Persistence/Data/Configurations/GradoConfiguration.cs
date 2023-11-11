@@ -7,7 +7,7 @@ public class GradoConfiguration : IEntityTypeConfiguration<Grado>
 {
     public void Configure(EntityTypeBuilder<Grado> builder)
     {
-        builder.ToTable("grago");
+        builder.ToTable("grado");
 
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).HasMaxLength(10).IsRequired();
