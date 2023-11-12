@@ -18,6 +18,6 @@ namespace Domain.Entities
         public int IdGradofk { get; set; }
         public Grado Grado { get; set; }
         public ICollection<AlumnoMatriculaAsignatura> alumnoMatriculaAsignaturas { get; set; }
-
+        public int IdDepartamentofk { get; set; }
     }
 }

@@ -111,4 +111,14 @@ public class DepartamentoController : BaseApiController
                                     .GetDepartamentoProfesoresInformatica();
         return _mapper.Map<List<DepartamentoDto>>(results);
     }
+
+    [HttpGet("GetDepartamentoConAsignaturaSinImpartir")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoAsignaturaSinImpartirDto>>> Get4()
+    {
+        var results = await _unitOfWork.Departamentos
+                                    .GetDepartamentoConAsignaturaSinImpartir();
+        return _mapper.Map<List<DepartamentoAsignaturaSinImpartirDto>>(results);
+    }
 }

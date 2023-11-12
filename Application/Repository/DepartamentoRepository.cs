@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -52,5 +53,24 @@ public class DepartamentoRepository : GenericRepository<Departamento>, IDepartam
                                             Nombre = p.Key.Nombre
                                         })
                                         .ToListAsync();
+    }
+
+    public async Task<IEnumerable<DepartamentoAsignaturaSinImpartir>> GetDepartamentoConAsignaturaSinImpartir()
+    {
+        var resultado = (from departamento in _context.Departamentos
+                         where (from asignatura in _context.Asignaturas
+                                where asignatura.IdDepartamentofk == departamento.Id &&
+                                      !_context.AlumnoMatriculaAsignaturas.Any(ama => ama.IdAsignaturafk == asignatura.Id)
+                                select asignatura).Any()
+                         from asignatura in _context.Asignaturas
+                         where asignatura.IdDepartamentofk == departamento.Id &&
+                               !_context.AlumnoMatriculaAsignaturas.Any(ama => ama.IdAsignaturafk == asignatura.Id)
+                         select new DepartamentoAsignaturaSinImpartir
+                         {
+                             NombreDepartamento = departamento.Nombre,
+                             NombreAsignatura = asignatura.Nombre
+                         }).ToListAsync();
+
+        return await resultado;
     }
 }
