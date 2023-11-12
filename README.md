@@ -5,6 +5,8 @@ Los endpoints estan separados por:
 - Los gets de cada tabla y su versionado.
 - Los gets de las consultas y su versionado.
 
+Nota: Los datos para llenar la base de datos debido a que se modifico agrgando 2 tablas mas estan en DatosSql.txt
+
 ### Consultas
 
 1.Consulta
