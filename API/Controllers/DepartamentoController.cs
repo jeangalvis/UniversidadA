@@ -121,4 +121,31 @@ public class DepartamentoController : BaseApiController
                                     .GetDepartamentoConAsignaturaSinImpartir();
         return _mapper.Map<List<DepartamentoAsignaturaSinImpartirDto>>(results);
     }
+    [HttpGet("GetProfesoresxDepartamentos")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesoresxDepartamentoDto>>> Get5()
+    {
+        var results = await _unitOfWork.Departamentos
+                                    .GetProfesoresxDepartamentos();
+        return _mapper.Map<List<ProfesoresxDepartamentoDto>>(results);
+    }
+    [HttpGet("GetCantidadProfesoresxDepartamentos")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesoresxDepartamentoDto>>> Get6()
+    {
+        var results = await _unitOfWork.Departamentos
+                                    .GetCantidadProfesoresxDepartamentos();
+        return _mapper.Map<List<ProfesoresxDepartamentoDto>>(results);
+    }
+    [HttpGet("GetDepartamentoConAsignaturaSinImpartir")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesoresxDepartamentoDto>>> Get7()
+    {
+        var results = await _unitOfWork.Departamentos
+                                    .GetDepartamentoConAsignaturaSinImpartir();
+        return _mapper.Map<List<ProfesoresxDepartamentoDto>>(results);
+    }
 }

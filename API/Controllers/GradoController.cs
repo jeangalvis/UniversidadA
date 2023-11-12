@@ -101,4 +101,32 @@ public class GradoController : BaseApiController
         var lstResultDto = _mapper.Map<List<GradoDto>>(result.registros);
         return new Pager<GradoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+
+    [HttpGet("GetGradosConAsignaturas")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<GradosConAsignaturasDto>>> Get3()
+    {
+        var results = await _unitOfWork.Grados
+                                    .GetGradosConAsignaturas();
+        return _mapper.Map<List<GradosConAsignaturasDto>>(results);
+    }
+    [HttpGet("GetGradosConAsignaturasMas40")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<GradosConAsignaturasDto>>> Get4()
+    {
+        var results = await _unitOfWork.Grados
+                                    .GetGradosConAsignaturasMas40();
+        return _mapper.Map<List<GradosConAsignaturasDto>>(results);
+    }
+    [HttpGet("GetGradoSumaCreditos")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<GradosConAsignaturasDto>>> Get5()
+    {
+        var results = await _unitOfWork.Grados
+                                    .GetGradoSumaCreditos();
+        return _mapper.Map<List<GradosConAsignaturasDto>>(results);
+    }
 }

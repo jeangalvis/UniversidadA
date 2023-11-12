@@ -73,4 +73,38 @@ public class DepartamentoRepository : GenericRepository<Departamento>, IDepartam
 
         return await resultado;
     }
+
+    public async Task<IEnumerable<ProfesoresxDepartamento>> GetProfesoresxDepartamentos()
+    {
+        var resultado = await _context.Departamentos
+        .Where(departamento => departamento.Profesores.Any())
+        .OrderByDescending(departamento => departamento.Profesores.Count())
+        .Select(departamento => new ProfesoresxDepartamento
+        {
+            NombreDepartamento = departamento.Nombre,
+            NumeroProfesores = departamento.Profesores.Count()
+        })
+        .ToListAsync();
+
+        return resultado;
+    }
+    public async Task<IEnumerable<ProfesoresxDepartamento>> GetCantidadProfesoresxDepartamentos()
+    {
+        var resultado = await _context.Departamentos
+        .Select(departamento => new ProfesoresxDepartamento
+        {
+            NombreDepartamento = departamento.Nombre,
+            NumeroProfesores = departamento.Profesores.Count()
+        })
+        .ToListAsync();
+
+        return resultado;
+    }
+    public async Task<IEnumerable<Departamento>> GetDepartamentoNoImpartieronAsignatura()
+    {
+        return await _context.Departamentos
+                    .Include(p => p.Profesores)
+                    .ThenInclude(p => p.Asignaturas)
+                    .Where(p => !p.Profesores.Any(p => p.Asignaturas.Any())).ToListAsync();
+    }
 }

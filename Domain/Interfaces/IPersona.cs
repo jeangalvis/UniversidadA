@@ -13,5 +13,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Persona>> GetProfesoresConDepartamento();
         Task<IEnumerable<Persona>> GetAlumnosMatriculadosAnyo();
         Task<IEnumerable<ProfesoresConDepartamento>> GetProfesoresConDepartamentos();
+        Task<TotalAlumnos> GetTotalAlumnos();
+        Task<TotalAlumnos> GetAlumnosDe1999();
     }
 }

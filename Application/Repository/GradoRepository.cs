@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -36,5 +37,49 @@ public class GradoRepository : GenericRepository<Grado>, IGrado
                                  .Take(pageSize)
                                  .ToListAsync();
         return (totalRegistros, registros);
+    }
+
+    public async Task<IEnumerable<GradosConAsignaturas>> GetGradosConAsignaturas()
+    {
+        var resultado = await _context.Grados
+        .Select(grado => new GradosConAsignaturas
+        {
+            NombreGrado = grado.Nombre,
+            NumeroAsignaturas = grado.Asignaturas.Count()
+        })
+        .OrderByDescending(grado => grado.NumeroAsignaturas)
+        .ToListAsync();
+
+        return resultado;
+    }
+    public async Task<IEnumerable<GradosConAsignaturas>> GetGradosConAsignaturasMas40()
+    {
+        var resultado = await _context.Grados
+        .Where(grado => grado.Asignaturas.Count() > 40)
+        .Select(grado => new GradosConAsignaturas
+        {
+            NombreGrado = grado.Nombre,
+            NumeroAsignaturas = grado.Asignaturas.Count()
+        })
+        .ToListAsync();
+
+        return resultado;
+    }
+    public async Task<IEnumerable<GradoSumaCreditos>> GetGradoSumaCreditos()
+    {
+        var resultado = await _context.Grados
+            .SelectMany(grado => grado.Asignaturas
+                .GroupBy(asignatura => asignatura.TipoAsignatura.Descripcion)
+                .Select(grupo => new GradoSumaCreditos
+                {
+                    NombreGrado = grado.Nombre,
+                    TipoAsignatura = grupo.Key,
+                    SumaCreditos = grupo.Sum(asignatura => asignatura.Creditos)
+                })
+            )
+            .OrderByDescending(resumen => resumen.SumaCreditos)
+            .ToListAsync();
+
+        return resultado;
     }
 }

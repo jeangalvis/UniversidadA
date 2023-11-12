@@ -130,20 +130,41 @@ public class PersonaRepository : GenericRepository<Persona>, IPersona
     public async Task<IEnumerable<ProfesoresConDepartamento>> GetProfesoresConDepartamentos()
     {
         var query = from p in _context.Personas
-            join pro in _context.Profesores on p.Id equals pro.IdPersonafk into proGroup
-            from pro in proGroup.DefaultIfEmpty()
-            join d in _context.Departamentos on pro.IdDepartamentofk equals d.Id into deptGroup
-            from d in deptGroup.DefaultIfEmpty()
-            where p.IdTipoPersonafk == 1
-            orderby d.Nombre, p.Apellido1, p.Apellido2, p.Nombre
-            select new ProfesoresConDepartamento
-            {
-                Departamento = d.Nombre,
-                Apellido1 = p.Apellido1,
-                Apellido2 = p.Apellido2,
-                Nombre = p.Nombre
-            };
+                    join pro in _context.Profesores on p.Id equals pro.IdPersonafk into proGroup
+                    from pro in proGroup.DefaultIfEmpty()
+                    join d in _context.Departamentos on pro.IdDepartamentofk equals d.Id into deptGroup
+                    from d in deptGroup.DefaultIfEmpty()
+                    where p.IdTipoPersonafk == 1
+                    orderby d.Nombre, p.Apellido1, p.Apellido2, p.Nombre
+                    select new ProfesoresConDepartamento
+                    {
+                        Departamento = d.Nombre,
+                        Apellido1 = p.Apellido1,
+                        Apellido2 = p.Apellido2,
+                        Nombre = p.Nombre
+                    };
 
         return await query.ToListAsync();
+    }
+
+    public async Task<TotalAlumnos> GetTotalAlumnos()
+    {
+        var totalAlumnas = await _context.Personas
+            .Where(persona => persona.IdTipoPersonafk == 2 && persona.IdSexofk == 2)
+            .CountAsync();
+
+        // Crear una nueva instancia de TotalAlumnos con el total de alumnas
+        var resultado = new TotalAlumnos { Total = totalAlumnas };
+        return resultado;
+    }
+    public async Task<TotalAlumnos> GetAlumnosDe1999()
+    {
+        var totalAlumnos = await _context.Personas
+            .Where(persona => persona.IdTipoPersonafk == 2 && persona.FechaNacimiento.Year == 1999)
+            .CountAsync();
+
+        var resultado = new TotalAlumnos { Total = totalAlumnos };
+
+        return resultado;
     }
 }

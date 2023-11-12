@@ -25,6 +25,10 @@ namespace API.Profiles
             CreateMap<AsignaturasAnyoNif, AsignaturasAnyoNifDto>().ReverseMap();
             CreateMap<ProfesoresConDepartamento, ProfesoresConDepartamentoDto>().ReverseMap();
             CreateMap<DepartamentoAsignaturaSinImpartir, DepartamentoAsignaturaSinImpartirDto>().ReverseMap();
+            CreateMap<TotalAlumnos, TotalAlumnosDto>().ReverseMap();
+            CreateMap<ProfesoresxDepartamento, ProfesoresxDepartamentoDto>().ReverseMap();
+            CreateMap<GradosConAsignaturas, GradosConAsignaturasDto>().ReverseMap();
+            CreateMap<GradoSumaCreditos, GradoSumaCreditosDto>().ReverseMap();
         }
     }
 }

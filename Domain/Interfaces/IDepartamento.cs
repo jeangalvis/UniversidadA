@@ -7,5 +7,8 @@ namespace Domain.Interfaces
     {
         Task<IEnumerable<Departamento>> GetDepartamentoProfesoresInformatica();
         Task<IEnumerable<DepartamentoAsignaturaSinImpartir>> GetDepartamentoConAsignaturaSinImpartir();
+        Task<IEnumerable<ProfesoresxDepartamento>> GetProfesoresxDepartamentos();
+        Task<IEnumerable<ProfesoresxDepartamento>> GetCantidadProfesoresxDepartamentos();
+        Task<IEnumerable<Departamento>> GetDepartamentoNoImpartieronAsignatura();
     }
 }
